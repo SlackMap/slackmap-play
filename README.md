@@ -10,6 +10,8 @@ For now we try to build prototype, a concet or in other words minimum viable pro
 
 We want to see if the idea is right 
 
+DEMOS: https://slackmap.github.io/slackmap-play/
+
 ## Idea
 Controll your game character by jumping on your slackline.
 
