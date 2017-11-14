@@ -1,0 +1,47 @@
+
+.canva {
+    position: relative;
+    top: 10px;
+    left: 0px;
+}
+.canva video {
+    
+}
+.canva .photo, .canva video {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 640px;
+    height: 480px;
+}
+.canva .pointer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    /* width: 10px;
+    height: 10px; */
+    background-color: rgba(0,0,0,.6);
+    /* margin: -5px -5px; */
+}
+span {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: white;
+}
+.canva .gremlin {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 60px;
+    height: 60px;
+}
+.table {
+    width: 640px;
+
+}
+/* .table td {
+    width: 33%;
+} */

@@ -6,7 +6,7 @@ No installation needed!
 You just need device with web browser & camera.
 
 ## Concept
-For now we try to build prototype, a concet or in other words Minimal Valuable Product (MVP).
+For now we try to build prototype, a concet or in other words minimum viable product (MVP).
 
 We want to see if the idea is right 
 
