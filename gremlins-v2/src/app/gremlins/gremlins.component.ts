@@ -44,14 +44,15 @@ export class GremlinsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-    //     this.videoRef.nativeElement.src = window.URL.createObjectURL(stream);
-    //     this.videoRef.nativeElement.play();
-    // });
+    
   }
 
   onCanvasClick(e) {
     console.log('canvas', e.layerX, e.layerY)
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        this.videoRef.nativeElement.src = window.URL.createObjectURL(stream);
+        this.videoRef.nativeElement.play();
+    });
   }
 
 }
