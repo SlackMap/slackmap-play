@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slack Game</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./mvp.css">
+
+</head>
+
+<body>
+    <div id="app" class="container container-fluid">
+
+        <h1>Slack Game MVP</h1>
+
+        <table class="table">
+            <tr>
+                <td>threshold</td>
+                <td>{{ threshold }}</td>
+                <td>
+                    <input v-model="threshold" type="range" min="0" max="255" step="1" />
+                </td>
+            </tr>
+            <tr>
+                <td>track color</td>
+                <td>{{ lineColor }}</td>
+                <td>
+                    <input v-model="lineColor" type="color" />
+                </td>
+            </tr>
+            <tr>
+                <td>box</td>
+                <td>{{linePos}}</td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <tr>
+                <td  class="score-box">{{ score | 0 }} kills</td>
+                <td>
+                    <span class="" v-if="!lineColor">Click on color to track</span>
+                    <span class="" v-if="lineColor">KILL IT !!!</span>
+                </td>
+                <td>
+                        <button v-on:click="play" v-if="!stream" class="btn btn-success">Play</button>
+                        <button v-on:click="stop" v-if="stream" class="btn btn-warning">Stop</button>
+                </td>
+            </tr>
+        </table>
+        <div class="canva">
+            <video ref="video" width="640" height="480" autoplay></video>
+            <img class="photo" ref="photo" width="640" height="480" v-on:click="onImgClick" />
+            <img class="pointer" src="./knife.png" v-bind:style="{ top: linePos[1] + 'px', left: 640-linePos[0]-(linePos[2]-linePos[0]) + 'px', width: linePos[2]-linePos[0] + 'px', height: linePos[3]-linePos[1] + 'px'}">
+        </div>
+        <img class="gremlin" v-bind:style="{ top: gremlinPos[1] + 'px', left: gremlinPos[0] + 'px' }" src="./gremlin2.png" />
+    </div>
+    </div>
+
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- <script src="./videotracker.js"></script> -->
+    <script src="./mvp.js"></script>
+</body>
+
+</html>

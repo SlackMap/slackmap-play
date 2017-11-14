@@ -25,12 +25,12 @@
     background-color: rgba(0,0,0,.6);
     /* margin: -5px -5px; */
 }
-span {
+/* span {
     position: absolute;
     top: 0px;
     left: 0px;
     color: white;
-}
+} */
 .canva .gremlin {
     position: absolute;
     top: 0px;
