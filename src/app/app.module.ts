@@ -1,3 +1,4 @@
+import { GremlinsModule } from './gremlins/gremlins.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -10,7 +11,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    GremlinsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
