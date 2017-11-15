@@ -8,7 +8,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "precommit": "ng lint --fix",
+    "prepush": "npm test"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +36,7 @@
     "@types/node": "~6.0.60",
     "angular2-template-loader": "^0.6.2",
     "codelyzer": "~3.2.0",
+    "husky": "^0.14.3",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
