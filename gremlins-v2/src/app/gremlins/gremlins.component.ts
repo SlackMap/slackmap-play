@@ -34,21 +34,21 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 })
 export class GremlinsComponent implements OnInit {
 
-  @ViewChild('video') videoRef:ElementRef;
-  @ViewChild('canvas') canvasref:ElementRef;
+  @ViewChild('video') videoRef: ElementRef;
+  @ViewChild('canvas') canvasref: ElementRef;
 
-  public invert: boolean = true;
+  public invert = true;
 
-  constructor() { 
-    
+  constructor() {
+
   }
 
   ngOnInit() {
-    
+
   }
 
   onCanvasClick(e) {
-    console.log('canvas', e.layerX, e.layerY)
+    console.log('canvas', e.layerX, e.layerY);
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.videoRef.nativeElement.src = window.URL.createObjectURL(stream);
         this.videoRef.nativeElement.play();

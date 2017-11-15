@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "precommit": "ng lint --fix",
+    "precommit": "npm run lint",
     "prepush": "npm test"
   },
   "private": true,
