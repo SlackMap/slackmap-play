@@ -6,6 +6,8 @@ export class Tracker {
   private threshold = 95;
   private frame: ImageData;
   private trackingColor: Pixel;
+  private trackedBox: Box;
+  private trackedBoxImageData: ImageData;
 
   setTrackingColor(color: Pixel) {
     this.trackingColor = color;
@@ -15,7 +17,13 @@ export class Tracker {
     this.frame = frame;
   }
   track(): Box {
-    let box: Box = [0, 0, 0, 0];
+    let box: Box;
+    const trackedBox: ImageData = {
+      width: this.frame.width,
+      height: this.frame.height,
+      data: []
+    };
+
     const imgPixels = this.frame;
 
     let closest = [];
@@ -33,27 +41,32 @@ export class Tracker {
 
         if (d > closestDist) {
           closestDist = d;
-          closest = [x, y];
+          closest = [x + 1, y + 1];
         }
 
         if (d > this.threshold) {
-
-          imgPixels.data[i] = 0;
-          imgPixels.data[i + 1] = 255;
-          imgPixels.data[i + 2] = 0;
-          imgPixels.data[i + 3] = 255;
-          // update box
-          box = extendBox(box, [x, y]);
+          box = extendBox(box, [x + 1, y + 1]);
+          trackedBox.data[i] = 0;
+          trackedBox.data[i + 1] = 0;
+          trackedBox.data[i + 2] = 0;
+          trackedBox.data[i + 3] = 255;
         } else {
-          imgPixels.data[i] = 0;
-          imgPixels.data[i + 1] = 0;
-          imgPixels.data[i + 2] = 0;
-          imgPixels.data[i + 3] = 0;
+          trackedBox.data[i] = 0;
+          trackedBox.data[i + 1] = 0;
+          trackedBox.data[i + 2] = 0;
+          trackedBox.data[i + 3] = 0;
 
         }
       }
     }
+    this.trackedBox = box;
+    this.trackedBoxImageData = trackedBox;
+
     return box;
+  }
+
+  getTrackedBoxImageData() {
+    return this.trackedBoxImageData;
   }
 }
 
