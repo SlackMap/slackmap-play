@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 @Component({
   selector: 'app-gremlins',
   styles: [`
-    h1, h2 { text-align: center; }
+    h1, h2 { text-align: center; color: white; }
     .container {width: 640px;margin: auto;}
     .toolbar {padding: 10px 0;}
     .canva {
@@ -52,6 +52,7 @@ export class GremlinsComponent implements OnInit {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.videoRef.nativeElement.src = window.URL.createObjectURL(stream);
         this.videoRef.nativeElement.play();
+        console.log('this.videoRef.nativeElement', this.videoRef.nativeElement);
     });
   }
 
