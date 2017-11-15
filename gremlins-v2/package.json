@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "precommit": "npm run lint",
-    "prepush": "npm test"
+    "precommit": "ng lint",
+    "prepush": "ng test --single-run"
   },
   "private": true,
   "dependencies": {
