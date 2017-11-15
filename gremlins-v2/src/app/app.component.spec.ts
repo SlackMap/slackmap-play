@@ -1,11 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { GremlinsModule } from './gremlins/gremlins.module';
+import { BrowserModule } from '@angular/platform-browser';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [
+        GremlinsModule
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -22,6 +27,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+    expect(compiled.querySelector('app-gremlins h1').textContent).toContain('Gremlins Slaughter House');
   }));
 });
