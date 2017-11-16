@@ -1,6 +1,5 @@
-import { ImageData } from './image-data';
 import { Tracker } from './tracker';
-import { jgdToStr, mkImageData, mkPixel } from './test-helpers';
+import { mkImageData, mkPixel } from './test-helpers';
 
 describe('Tracker', () => {
   let tracker: Tracker;

@@ -1,4 +1,4 @@
-import { Pixel, ImageData, Box } from './image-data';
+import { Pixel, Box } from './image-data';
 
 
 export class Tracker {
@@ -16,13 +16,14 @@ export class Tracker {
   setFrame(frame: ImageData): void {
     this.frame = frame;
   }
+
+  trackColorFrom(point): void {
+
+  }
+
   track(): Box {
     let box: Box;
-    const trackedBox: ImageData = {
-      width: this.frame.width,
-      height: this.frame.height,
-      data: []
-    };
+    const trackedBox: ImageData = new ImageData(this.frame.width, this.frame.height);
 
     const imgPixels = this.frame;
 

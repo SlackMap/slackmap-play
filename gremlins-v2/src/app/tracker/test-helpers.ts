@@ -1,4 +1,4 @@
-import { Pixel, ImageData } from './image-data';
+import { Pixel } from './image-data';
 
 /**
  * mapping char => rgba pixel array
@@ -34,11 +34,8 @@ export function mkPixel(colorChar: string): Pixel {
  * Build a ImageData object from a array of chars
  */
 export function mkImageData(...pixels: string[]): ImageData {
-  const data: ImageData = {
-    width: pixels[0].length,
-    height: pixels.length,
-    data: []
-  };
+  const data: ImageData = new ImageData(pixels[0].length, pixels.length);
+  let pixelsData: number[] = [];
   for (let y = 0; y < data.height; y++) {
     const line = pixels[y];
     if (line.length !== data.width) {
@@ -49,9 +46,11 @@ export function mkImageData(...pixels: string[]): ImageData {
       if (typeof pixel === 'undefined') {
         throwUndefinedChar(line[x]);
       } else {
-        data.data = [...data.data, ...pixel];
+        // console.log(data.data.length, data.width*data.height*4);
+        pixelsData = [...pixelsData, ...pixel];
       }
     }
+    data.data.set(pixelsData);
   }
   return data;
 }
