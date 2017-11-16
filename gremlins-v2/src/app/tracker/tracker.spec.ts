@@ -1,4 +1,4 @@
-import { Tracker } from './tracker';
+import { Tracker, getBoxCenter } from './tracker';
 import { mkImageData, mkPixel } from './test-helpers';
 
 describe('Tracker', () => {
@@ -65,12 +65,20 @@ describe('Tracker', () => {
     tracker.setTrackingColor(trackingPixel);
     tracker.setFrame(frame);
     tracker.track();
-    const given = tracker.getTrackedBoxImageData();
+    const given = tracker.getTrackedColorMesh();
     expect(given).toEqual(expected);
 
   });
 
 });
+
+describe('getBoxCenter', () => {
+  it('should return center of the box', () => {
+    const center = getBoxCenter([10, 5, 20, 15]);
+    expect(center).toEqual([15, 10]);
+  });
+});
+
 
 
 

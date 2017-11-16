@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Tracker } from '../tracker/tracker';
+import { Tracker, containsBox, randomRange } from '../tracker/tracker';
 import { NgZone } from '@angular/core';
+import { Pos } from '../tracker/image-data';
 
 @Component({
   selector: 'app-gremlins',
   styles: [`
-    h1, h2 { text-align: center; color: white; }
+    h1, h2 { text-align: center; }
     .container {width: 640px;margin: auto;}
     .toolbar {padding: 10px 0;}
     .canva {
@@ -15,6 +16,12 @@ import { NgZone } from '@angular/core';
       margin: auto;
       border: 1px dotted gray;
     }
+    .hidden {visibility: hidden}
+    .right {float: right}
+    .right {float: right}
+    .red {color: red}
+    .blue {color: blue}
+    .center {width: 200px; margin: auto; display: block; text-align: center}
     video, canvas {position: absolute; top: 0; left: 0;}
     .invert {-webkit-transform: scaleX(-1);transform: scaleX(-1);}
   `],
@@ -27,9 +34,21 @@ import { NgZone } from '@angular/core';
         <canvas #canvas width="640" height="480" (click)="onCanvasClick($event)"></canvas>
       </div>
       <div class="toolbar">
-        <label><input type="checkbox" [(ngModel)]="invert" /> invert</label>
+        <label class="right"><input type="checkbox" [(ngModel)]="invert" /> invert</label>
+        <b>{{score}} Kills</b>
+        <p class="center">
+          <button class="btn btn-default" *ngIf="!tracker" (click)="onCanvasClick($event)">Play</button>
+          <b class=" blue" *ngIf="tracker && !tracker.trackingColor" (click)="onCanvasClick($event)"> Select color to track</b>
+          <b class=" red" *ngIf="tracker && tracker.trackingColor">Kill 'Em All</b>
+        </p>
+        <hr>
+        <p class="center">
+          <a href="https://github.com/SlackMap/slackmap-play/tree/master/gremlins-v2" target="_blank">Source code on GitHub</a>
+        </p>
       </div>
     </div>
+    <img #gremlin src="assets/gremlin.png" class="hidden" />
+    <img #knife src="assets/knife.png"  class="hidden" />
 
   `,
   encapsulation: ViewEncapsulation.None
@@ -38,11 +57,15 @@ export class GremlinsComponent implements OnInit {
 
   @ViewChild('video') videoRef: ElementRef;
   @ViewChild('canvas') canvasRef: ElementRef;
+  @ViewChild('gremlin') gremlinRef: ElementRef;
+  @ViewChild('knife') knifeRef: ElementRef;
 
-  public invert = false;
+  public invert = true;
   public rendering = false;
   public tracker: Tracker;
   public context: CanvasRenderingContext2D;
+  public gremlinPos: Pos;
+  public score = 0;
 
   constructor(public ngZone: NgZone) {
 
@@ -82,6 +105,10 @@ export class GremlinsComponent implements OnInit {
       this.tracker.setTrackingColor(trackedColor);
       if (!this.rendering) {
         this.render();
+        this.gremlinPos = [
+          randomRange(50, 580),
+          randomRange(50, 420)
+        ];
       }
     } else {
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
@@ -112,15 +139,66 @@ export class GremlinsComponent implements OnInit {
 
     this.tracker.track();
 
-    const data = this.tracker.getTrackedBoxImageData();
-
+    const data = this.tracker.getTrackedColorMesh();
+    this.context.clearRect(0, 0, video.width, video.height);
     if (data) {
-      this.context.putImageData(data, 0, 0, 0, 0, data.width, data.height);
+      // this.context.putImageData(data, 0, 0, 0, 0, data.width, data.height);
+    }
+
+    const point = this.tracker.getTrackedColorCenter();
+    if (point) {
+      // this.context.fillStyle = 'rgba(255,0,0,125)';
+      // this.context.fillRect(point[0], point[1], 20, 20);
+      this.context.drawImage(this.knifeRef.nativeElement, point[0], point[1], 100, 100);
+      this.hitGremlin(point);
+    }
+
+    // render gremlin
+    if (this.gremlinPos) {
+      // this.context.fillStyle = 'rgba(0,255,0,125)';
+      // this.context.fillRect(this.gremlinPos[0], this.gremlinPos[1], 60, 60);
+      this.context.drawImage(this.gremlinRef.nativeElement, this.gremlinPos[0], this.gremlinPos[1], 200, 122);
     }
 
     this.ngZone.runOutsideAngular(() => {
       requestAnimationFrame(this.render.bind(this));
     });
   }
+
+  /**
+   * check if poit is inside gremlin
+   * if yes, score++ & place new gremlin
+   */
+  hitGremlin(point) {
+    if (!this.gremlinPos) {
+      return;
+    }
+    if (containsBox([...this.gremlinPos, this.gremlinPos[0] + 200, this.gremlinPos[1] + 122], point)) {
+      this.gremlinPos = [
+        randomRange(50, 500),
+        randomRange(50, 340)
+      ];
+      this.ngZone.run(() => {
+        this.score++;
+      });
+    }
+  }
+
+  // play() {
+  //   if (this.stream) return;
+  //   navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+  //     this.stream = stream;
+  //     this.$refs.video.src = window.URL.createObjectURL(stream);
+  //     this.$refs.video.play();
+  //     this.snap()
+  //   });
+  // }
+
+  // stop() {
+  //   if (this.stream) {
+  //     this.stream.getTracks()[0].stop();
+  //     this.stream = null;
+  //   }
+  // }
 
 }
