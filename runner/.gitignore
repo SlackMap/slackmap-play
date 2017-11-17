@@ -1,0 +1,8 @@
+# Git
+.git/
+.history
+# NPM
+node_modules/
+
+# Dist
+dist/
