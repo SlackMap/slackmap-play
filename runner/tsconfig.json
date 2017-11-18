@@ -1,14 +1,29 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "pretty": true
+    "pretty": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/phaser/typescript"
+    ],
+    "paths": {
+      "pixi": ["./node_modules/phaser/build/custom/pixi.js"],
+      "p2": ["./node_modules/phaser/typescript/p2.d.ts"]
+    },
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
   "files": [
+    "./node_modules/phaser/typescript/pixi.d.ts",
+    "./node_modules/phaser/typescript/phaser.d.ts",
     "./node_modules/phaser/typescript/box2d.d.ts",
     "./node_modules/phaser/typescript/p2.d.ts",
     "./node_modules/phaser/typescript/phaser.comments.d.ts",
@@ -16,6 +31,6 @@
   ],
   "include": [
     "./src/**/*.ts",
-    "./node_modules/@types/**/*.ts"
+    "./node_modules/phaser/typescript/**/*.ts"
   ]
 }

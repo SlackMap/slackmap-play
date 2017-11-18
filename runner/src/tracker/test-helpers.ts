@@ -15,7 +15,7 @@ const colors = {
   'g': [0, 255, 0, 255], // Green
   'G': [0, 255, 0, 128], // Green half-alpha
   'b': [0, 255, 0, 255], // Green
-  'B': [0, 0, 255, 128], // Green half-alpha
+  'B': [0, 0, 255, 128] // Green half-alpha
 };
 
 /**

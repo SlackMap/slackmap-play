@@ -1,6 +1,5 @@
 import { Tracker, getBoxCenter } from './tracker';
 import { mkImageData, mkPixel } from './test-helpers';
-import { expect } from 'chai';
 
 describe('Tracker', () => {
   let tracker: Tracker;
@@ -9,13 +8,13 @@ describe('Tracker', () => {
   });
 
   it('should create tracker', () => {
-    expect(tracker).to.exist;
+    expect(tracker).toBeTruthy();
   });
 
   it('should set trackingColor', () => {
     const trackingPixel = mkPixel('1');
     tracker.setTrackingColor(trackingPixel);
-    expect(tracker['trackingColor']).to.equal(trackingPixel);
+    expect(tracker['trackingColor']).toEqual(trackingPixel);
   });
 
   it('should set frame', () => {
@@ -24,7 +23,7 @@ describe('Tracker', () => {
       '91'
     );
     tracker.setFrame(frame);
-    expect(tracker['frame']).to.equal(frame);
+    expect(tracker['frame']).toEqual(frame);
   });
 
   it('should track color on the frame and return', () => {
@@ -44,7 +43,7 @@ describe('Tracker', () => {
     const expected = [3, 2, 4, 2];
 
 
-    expect(given).to.equal(expected);
+    expect(given).toEqual(expected);
 
   });
 
@@ -67,7 +66,7 @@ describe('Tracker', () => {
     tracker.setFrame(frame);
     tracker.track();
     const given = tracker.getTrackedColorMesh();
-    expect(given).to.equal(expected);
+    expect(given).toEqual(expected);
 
   });
 
@@ -76,7 +75,6 @@ describe('Tracker', () => {
 describe('getBoxCenter', () => {
   it('should return center of the box', () => {
     const center = getBoxCenter([10, 5, 20, 15]);
-    expect(center).to.equal([15, 10]);
+    expect(center).toEqual([15, 10]);
   });
 });
-
