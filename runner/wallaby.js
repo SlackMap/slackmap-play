@@ -1,24 +1,79 @@
+var path = require('path');
+var webpack = require('webpack');
+var wallabyWebpack = require('wallaby-webpack');
+
 module.exports = function (w) {
 
-  return {
-    files: [
-      'src/**/*.ts',
-      { pattern: 'src/**/*.spec.ts', ignore: true }
-    ],
+	var webpackPostprocessor = wallabyWebpack({
 
-    tests: [
-      'src/**/*.spec.ts'
-    ],
+		resolve: {
+			modules: [
+        // as described at
+				// https://wallabyjs.com/docs/integration/webpack.html#absolute-paths-for-wallaby-cache-folder
+				// path.resolve(__dirname),
+        path.join(w.projectCacheDir, 'src'),
+        // path.join(w.projectCacheDir, 'src/app'),
+				// path.join(w.projectCacheDir, 'src/app/redux'),
+				'node_modules'
+			],
+			// as described at
+			// https://wallabyjs.com/docs/integration/webpack.html#typescript-and-coffeescript
+			extensions: ['.json', '.js', '.jsx']
+		},
 
-    env: {
-      type: 'node'
-    },
+		module: {
+			rules: [
+				{
+					test: /\.(jpe?g|png|gif)$/i,
+					loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
+				},
+				{
+					test: /\.json$/,
+					loader: 'json-loader'
+				}
+			],
+		},
 
-    // or any other supported testing framework:
-    // https://wallabyjs.com/docs/integration/overview.html#supported-testing-frameworks
-    testFramework: 'mocha',
-    compilers: {
-      'src/**/*.ts': w.compilers.typeScript({ module: 'commonjs' })
-    }
-  };
+		externals: {
+			'react/lib/ExecutionEnvironment': true,
+			'react/lib/ReactContext': 'window'
+		},
+
+		plugins: [
+			new webpack.IgnorePlugin(/^fs$/),
+			new webpack.IgnorePlugin(/^react\/addons$/),
+			new webpack.NoEmitOnErrorsPlugin(),
+			new webpack.DefinePlugin({
+				'process.env': {
+					BROWSER: JSON.stringify(true),
+					NODE_ENV: JSON.stringify('development')
+				}
+			})
+		]
+	});
+
+	return {
+		files: [
+			// There are not only .ts files, also .tsx, .png used.
+			// also config/main.js is used from one the files
+			{ pattern: 'config/main.js', load: false },
+			{ pattern: 'src/**/*.ts*', load: false },
+			{ pattern: 'src/**/*.png', load: false },
+			{ pattern: 'src/**/*.spec.ts*', ignore: true }
+		],
+		tests: [
+			{ pattern: 'src/**/*.spec.ts*', load: false }
+		],
+    // as described at
+    // https://wallabyjs.com/docs/integration/electron.html
+		env: {
+			kind: 'electron'
+		},
+		postprocessor: webpackPostprocessor,
+		testFramework: 'jasmine',
+		setup: function () {
+			window.__moduleBundler.loadTests();
+		},
+		debug: true
+	};
 };

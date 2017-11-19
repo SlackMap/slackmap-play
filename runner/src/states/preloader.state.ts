@@ -7,7 +7,7 @@ export class PreloaderState extends Phaser.State {
 
   preload() {
     this.loadingBar = new PreloadBar(this.game);
-    this.load.image('logo', 'assets/images/phaser-logo-small.png');
+    this.load.image('logo', 'assets/phaser-logo-small.png');
   }
 
   create() {

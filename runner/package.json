@@ -9,9 +9,9 @@
     "lint": "tslint src/**/*.ts",
     "test": "karma start",
     "test2": "mocha --require ts-node/register ./src/**/*.spec.ts",
-    "prepublish": "npm run lint && npm run build && npm run test",
-    "prepush": "npm run prepublish",
-    "precommit": "npm run lint"
+    "-prepublish": "npm run lint && npm run build && npm run test",
+    "-prepush": "npm run prepublish",
+    "-precommit": "npm run lint"
   },
   "author": {
     "name": "Piotr Błaszczak",
@@ -32,6 +32,7 @@
     "clean-webpack-plugin": "0.1.17",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "0.28.7",
+    "electron": "^1.7.9",
     "expose-loader": "0.7.3",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
@@ -55,6 +56,7 @@
     "tslint": "5.8.0",
     "tslint-eslint-rules": "4.1.1",
     "typescript": "2.6.1",
+    "wallaby-webpack": "0.0.45",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4"
   },
