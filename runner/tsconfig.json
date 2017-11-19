@@ -10,27 +10,14 @@
     "pretty": true,
     "typeRoots": [
       "node_modules/@types",
-      "node_modules/phaser/typescript"
+      "node_modules/phaser-ce/typescript"
     ],
-    "paths": {
-      "pixi": ["./node_modules/phaser/build/custom/pixi.js"],
-      "p2": ["./node_modules/phaser/typescript/p2.d.ts"]
-    },
     "lib": [
       "es2017",
       "dom"
     ]
   },
-  "files": [
-    "./node_modules/phaser/typescript/pixi.d.ts",
-    "./node_modules/phaser/typescript/phaser.d.ts",
-    "./node_modules/phaser/typescript/box2d.d.ts",
-    "./node_modules/phaser/typescript/p2.d.ts",
-    "./node_modules/phaser/typescript/phaser.comments.d.ts",
-    "./node_modules/phaser/typescript/pixi.comments.d.ts"
-  ],
   "include": [
-    "./src/**/*.ts",
-    "./node_modules/phaser/typescript/**/*.ts"
+    "./src/**/*.ts"
   ]
 }

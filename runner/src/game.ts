@@ -3,6 +3,7 @@
 require('pixi');
 require('p2');
 require('phaser');
+import 'phaser-ce';
 
 // import './styles.css';
 import { SetupState } from './states/setup.state';
@@ -28,7 +29,9 @@ class App {
 
 
 }
-
-window.onload = () => {
-  let game = new App();
+let game;
+window.onclick = () => {
+  if (!game) {
+    game = new App();
+  }
 };

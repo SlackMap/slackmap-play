@@ -18,7 +18,7 @@ const IS_PRODUCTION     = process.env.NODE_ENV === 'production';
 const assetsPath        = path.join(__dirname, 'assets/');
 const stylesPath        = path.join(__dirname, 'styles/');
 
-const phaserRoot        = path.join(__dirname, 'node_modules/phaser/build/custom/');
+const phaserRoot        = path.join(__dirname, 'node_modules/phaser-ce/build/custom/');
 
 const phaserPath        = path.join(phaserRoot, 'phaser-split.js');
 const pixiPath          = path.join(phaserRoot, 'pixi.js');
@@ -75,8 +75,7 @@ module.exports = {
       pixi:   pixiPath,
       phaser: phaserPath,
       p2:     p2Path,
-      assets: assetsPath,
-      styles: stylesPath
+      assets: assetsPath
     }
   },
   plugins: filterNull([
@@ -173,7 +172,7 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: 'awesome-typescript-loader'
+        loader: 'ts-loader'
       }
     ]
   }

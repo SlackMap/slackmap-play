@@ -1,8 +1,7 @@
-import { Game } from 'phaser';
 
 
 export class PreloadBar {
-  game: Game;
+  game: Phaser.Game;
   width: number;
   height: number;
   progressBar: Phaser.BitmapData;
